@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->Increments('id');
             $table->string('first_name');
             $table->string('last_name');
-            // $table->string('postcode');
+            $table->string('postcode');
             $table->string('address');
             $table->string('longitude');
             $table->string('latitude');

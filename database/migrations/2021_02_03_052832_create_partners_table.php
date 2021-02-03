@@ -18,10 +18,8 @@ class CreatePartnersTable extends Migration
             $table->integer('category_id');
             $table->string('partner_name');
             $table->string('address');
-            $table->string('partner_email')->unique();
-            $table->string('password');
             $table->string('postcodes');
-            $table->integer('contact_userid');
+            $table->string('contact_name');
             $table->string('email')->unique();
             $table->string('telephone');
             $table->timestamps();

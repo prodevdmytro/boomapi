@@ -29,10 +29,19 @@ Route::group(['middleware' => ['jwt-auth']], function () {
     Route::post('create_categories', 'HomeController@create_categories');
     Route::get('categories', 'HomeController@categories');
     Route::post('unlock_category','HomeController@unlock_category');
+    
     /***** add partners ****/
     Route::post('create_partners', 'HomeController@create_partners');
     Route::get('partners', 'HomeController@partners');
     Route::post('checkBoomid', 'HomeController@checkBoomid');
-    
+
+    /**** upgrade get new boom ****/
+    Route::post('get_newboom', 'HomeController@get_newboom');
+    Route::get('get_boomlist', 'HomeController@get_boomlist');
+    Route::get('unlockboom', 'HomeController@unlockboom');
+    Route::get('boom_details', 'HomeController@boom_details');
+    Route::get('get_boomprice', 'HomeController@get_boomprice');
+    Route::get('show_partners', 'HomeController@show_partners');
+
 });
 
