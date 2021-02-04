@@ -18,6 +18,12 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 class HomeController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->user = JWTAuth::parseToken()->authenticate();
+    }
+
+    
     private function getToken($email, $password)
     {
         $token = null;
