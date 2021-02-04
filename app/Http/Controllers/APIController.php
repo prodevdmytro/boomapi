@@ -241,8 +241,9 @@ class APIController extends Controller
                             'id' => $user->id,
                             'address' => $user->address,
                             'longitude' => $user->longitude,
-                            'latitude' => $user->latitude,                                       
-                            'status' => $lock_status,
+                            'latitude' => $user->latitude,
+                            'status' => 1,
+                            'lock_status' => $lock_status,
                             'message' => "This is my home address",
                         ],
                     ];
@@ -260,8 +261,9 @@ class APIController extends Controller
                         'address' => $user->address,
                         'longitude' => $user->longitude,
                         'latitude' => $user->latitude,                        
-                        'email' => $user->email,                    
-                        'status' => $lock_status,
+                        'email' => $user->email,
+                        'status' => 0,     
+                        'lock_status' => $lock_status,
                         'message' => "I’m not at home",
                     ],
                 ];
@@ -452,7 +454,6 @@ class APIController extends Controller
             return response()->json($response);
         }
     }
-
 
     public function partner_login(Request $request)
     {

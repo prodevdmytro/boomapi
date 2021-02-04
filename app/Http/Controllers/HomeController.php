@@ -305,7 +305,7 @@ class HomeController extends Controller
         else{
             $partner = Partner::where('postcodes', $user->postcode)->first();
             if(empty($partner)) {
-                $response = ['status' => false, 'message' => "No booms available"];  
+                $response = ['status' => false, 'message' => "No matched partner"];  
                 return response()->json($response, 404);
             }
             else{
