@@ -76,18 +76,8 @@ class HomeController extends Controller
         $normal_price_arr = array_filter([$normal_price1,$normal_price2,$normal_price3]);
         $boom_price1_arr = array_filter([$boom_price1,$boom_price2,$boom_price3]);
 
-        $checkCategory = Category::where('category_name', $request->category_name)->first();
-        
-        if($checkCategory)
-        {
-            $response = [
-                'status' => false,
-                'message' => 'already registed Category',
-            ];
-            return response()->json($response);
-        }
 
-        $categories = new category();
+        $categories = new Category();
         $categories->category_name = $category_name;
         $categories->expires = $expires;
         $categories->postcode = $postcodes;
@@ -99,7 +89,7 @@ class HomeController extends Controller
             try{
                 $service_data_arr = [];
                 for($i=0; $i < count($service_name_arr); $i++){
-                    $services = new service();
+                    $services = new Service();
                     $services->category_id = $categoryid->id;
                     $services->service_name = $service_name_arr[$i];
                     $services->normal_price = $normal_price_arr[$i];
@@ -430,6 +420,45 @@ class HomeController extends Controller
 
     public function send_email(Request $request)
     {
+
+    }
+
+    public function get_notification(Request $request)
+    {
+        $user = $this->getAuthUser($request);
+        $locked_booms = count(Boom::where('boombtn_id', $user->homebtnid)->where('status','locked')->get());    
+        $unlocked_booms = count(Boom::where('boombtn_id', $user->homebtnid)->where('status','unlocked')->get());
+        $response = ['status' => true, 'locked_booms' => $locked_booms, "unlocked_booms" =>$unlocked_booms]; 
         
+        return response()->json($response, 201);
+        
+    }
+
+    public function get_lockedbooms(Request $request)
+    {
+        $user = $this->getAuthUser($request);
+        $locked_booms = Boom::where('boombtn_id', $user->homebtnid)->where('status','locked')->get();        
+        if(!empty($locked_booms)){
+            return response()->json($locked_booms, 201);
+        }
+        else{
+            $response = ['status' => false, 'message' => "No locked booms"];  
+            return response()->json($response, 404);
+        }
+        
+    }
+
+
+    public function get_unlockedbooms(Request $request)
+    {
+        $user = $this->getAuthUser($request);
+        $unlocked_booms = Boom::where('boombtn_id', $user->homebtnid)->where('status','unlocked')->get();     
+        if(!empty($locked_booms)){
+            return response()->json($unlocked_booms, 201);
+        }
+        else{
+            $response = ['status' => false, 'message' => "No unlocked booms"];  
+            return response()->json($response, 404);
+        }
     }
 }

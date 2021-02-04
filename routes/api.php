@@ -43,5 +43,9 @@ Route::group(['middleware' => ['jwt-auth']], function () {
     Route::get('get_boomprice', 'HomeController@get_boomprice');
     Route::get('show_partners', 'HomeController@show_partners');
 
+    Route::get('get_notification', 'HomeController@get_notification');
+    Route::get('get_lockedbooms', 'HomeController@get_lockedbooms');
+    Route::get('get_unlockedbooms', 'HomeController@get_unlockedbooms');
+
 });
 
